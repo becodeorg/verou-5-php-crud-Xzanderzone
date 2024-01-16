@@ -23,6 +23,18 @@ class DatabaseManager
   public function connect(): void
   {
     // TODO: make the connection to the database
-    $this->connection = null;
+    try {
+      $this->connection = new PDO("mysql://host={$this->host};port={3306};dbname={$this->dbname}", $this->user, $this->password);
+
+      //mariadb://xzandersDB_solutionwe: 8998ac1f55702f22603eac35530ebe1c891dc450 @3mw.h.filess.io:3305/xzandersDB_solutionwe
+      // $this->connection = new PDO("mysql://xzandersDB_solutionwe:8998ac1f55702f22603eac35530ebe1c891dc450@3mw.h.filess.io:3305/xzandersDB_solutionwe");
+      // $this->connection = new PDO("mariadb://$this->user:$this->password@$this->host/$this->dbname");
+      $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+      $this->connection->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+      echo "connected successfully ";
+    } catch (PDOException $e) {
+      // $this->connection = null;
+      echo "connection failed!" . $e->getMessage();
+    }
   }
 }

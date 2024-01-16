@@ -40,10 +40,15 @@ function overview()
 {
   // Load your view
   // Tip: you can load this dynamically and based on a variable, if you want to load another view
+  global $cardRepository;
+  $cards = $cardRepository->get();
   require 'overview.php';
+
 }
 
 function create()
 {
   // TODO: provide the create logic
+  global $cardRepository;
+  $cardRepository->create('test1', 'test2', 'test3');
 }

@@ -6,6 +6,7 @@
 class CardRepository
 {
   private DatabaseManager $databaseManager;
+  private $table = 'pets';
 
   // This class needs a database connection to function
   public function __construct(DatabaseManager $databaseManager)
@@ -13,29 +14,41 @@ class CardRepository
     $this->databaseManager = $databaseManager;
   }
 
-  public function create(): void
+  public function create(string $name, string $type, string $skill, int $obtained = 0): void
   {
+    try {
+      $this->databaseManager->connection->query("INSERT INTO $this->table  VALUES ('$name', '$type', '$skill', $obtained)");
+    } catch (PDOException $e) {
+      echo "query failed" . $e->getMessage();
 
+    }
   }
 
   // Get one
-  public function find(): array
+  public function find(string $name): array
   {
-
+    try {
+      $query = $this->databaseManager->connection->query("SELECT $name FROM $this->table");
+      $result = $query->fetchAll(PDO::FETCH_ASSOC);
+      return $result;
+    } catch (PDOException $e) {
+      echo "query failed" . $e->getMessage();
+      return [];
+    }
   }
 
   // Get all
   public function get(): array
   {
-    // TODO: Create an SQL query
-    // TODO: Use your database connection (see $databaseManager) and send your query to your database.
-    // TODO: fetch your data at the end of that action.
-    // TODO: replace dummy data by real one
-    return [
-      ['name' => 'dummy one'],
-      ['name' => 'dummy two'],
-    ];
+    try {
 
+      $query = $this->databaseManager->connection->query("SELECT * FROM $this->table");
+      $result = $query->fetchAll(PDO::FETCH_ASSOC);
+      return $result;
+    } catch (PDOException $e) {
+      echo "query failed" . $e->getMessage();
+      return [];
+    }
     // We get the database connection first, so we can apply our queries with it
     // return $this->databaseManager->connection-> (runYourQueryHere)
   }
