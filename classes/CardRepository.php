@@ -28,8 +28,8 @@ class CardRepository
   public function find(string $name): array
   {
     try {
-      $query = $this->databaseManager->connection->query("SELECT $name FROM $this->table");
-      $result = $query->fetchAll(PDO::FETCH_ASSOC);
+      $query = $this->databaseManager->connection->query("SELECT * FROM $this->table WHERE name = '$name' LIMIT 1");
+      $result = $query->fetch(PDO::FETCH_ASSOC);
       return $result;
     } catch (PDOException $e) {
       echo "query failed" . $e->getMessage();
@@ -53,9 +53,13 @@ class CardRepository
     // return $this->databaseManager->connection-> (runYourQueryHere)
   }
 
-  public function update(): void
+  public function update(string $originalName, string $name, string $type, string $skill, int $obtained = 0): void
   {
-
+    try {
+      $this->databaseManager->connection->query("UPDATE $this->table SET name = '$name' , type = '$type' , skill = '$skill' , obtained = $obtained WHERE name = '$originalName'; ");
+    } catch (PDOException $e) {
+      echo "query failed" . $e->getMessage();
+    }
   }
 
   public function delete(): void
