@@ -7,12 +7,12 @@
     content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="style.css">
-  <title>Goodcard - track your collection of Runescape pets</title>
+  <title>RSP - track your collection of Runescape pets</title>
 </head>
 
 <body>
 
-  <h1>Goodcard - track your collection of Runescape pets</h1>
+  <h1>RSP - track your collection of Runescape pets</h1>
   <a class="create" href="?action=create">Create new pet</a>
 
   <ul>

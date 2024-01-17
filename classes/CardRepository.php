@@ -62,9 +62,13 @@ class CardRepository
     }
   }
 
-  public function delete(): void
+  public function delete($name): void
   {
-
+    try {
+      $this->databaseManager->connection->query("DELETE FROM $this->table WHERE name='$name'");
+    } catch (PDOException $e) {
+      echo "query failed" . $e->getMessage();
+    }
   }
 
 }

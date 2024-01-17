@@ -31,7 +31,7 @@ class DatabaseManager
       // $this->connection = new PDO("mariadb://$this->user:$this->password@$this->host/$this->dbname");
       $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
       $this->connection->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-      echo "connected successfully ";
+      // echo "connected successfully ";
     } catch (PDOException $e) {
       // $this->connection = null;
       echo "connection failed!" . $e->getMessage();

@@ -63,21 +63,24 @@ function edit()
   $edit = $cardRepository->find($_GET["name"]);
   require 'edit.php';
 
-  if (!empty($_POST['name']) && !empty($_POST['type']) && !empty($_POST['skill']))
+  if (!empty($_POST['name']) && !empty($_POST['type']) && !empty($_POST['skill'])) {
     $cardRepository->update($edit['name'], $_POST['name'], $_POST['type'], $_POST['skill'], isset($_POST['obtained']) ? 1 : 0);
-  else
+    header("Location: ?", true, 301);
+
+  } else
     echo "fields can not be left empty!";
 }
 function delete()
 {
   global $cardRepository;
-  $edit = $cardRepository->find($_GET["name"]);
-  require 'delete.php';
-
-  if (!empty($_POST['confirm']))
-    $cardRepository->update($edit['name'], $_POST['name'], $_POST['type'], $_POST['skill'], isset($_POST['obtained']) ? 1 : 0);
-  else
-    echo "fields can not be left empty!";
+  if (empty($_POST['delete'])) {
+    $edit = $cardRepository->find($_GET["name"]);
+    require 'delete.php';
+  } else if ($_POST['delete'] == 'confirm') {
+    $_POST['delete'] = 'deleted'; //stop multiple deletes
+    $cardRepository->delete($_GET['name']);
+    header("Location: ?", true, 301);
+  }
 }
-// echo var_dump($_POST);
+// echo var_dump($_POST) . "<br>";
 // echo var_dump($_GET);

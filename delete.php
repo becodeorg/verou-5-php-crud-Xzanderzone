@@ -23,7 +23,7 @@
     <label for="obtained">obtained:</label>
     <input disabled='true' class='obtained' <?= $edit["obtained"] ? 'checked' : '' ?> name='obtained' type='checkbox'>
     </input>
-    <input type="submit" value="confirm delition">
+    <input type="submit" style="color:red" name=delete value='confirm'>
   </form>
   <!-- <button></button> -->
   <a class="create" href="?">Return to overview</a>
